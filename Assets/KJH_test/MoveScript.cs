@@ -16,10 +16,20 @@ public class MoveScript : MonoBehaviour
     void Start(){   }
     void Update()
     {
+        toAnim();
         Move();
         Jump();
     }
 
+    void toAnim()
+    {
+        input_x = Input.GetAxis("Horizontal");
+        input_y = Input.GetAxis("Vertical");
+        if (input_x != 0 || input_y != 0)
+            aniCtrl.SetBool("walking", true);
+        else
+            aniCtrl.SetBool("walking", false);
+    }
     void Move()
     {
         input_x = Input.GetAxis("Horizontal");
@@ -27,7 +37,7 @@ public class MoveScript : MonoBehaviour
         if (input_x != 0 || input_y != 0)
         {
             aniCtrl.SetBool("walking",true);
-            // rigid.velocity = new Vector3(input_x,rigid.velocity.y,input_y)*SPEED;
+            rigid.velocity = new Vector3(input_x,rigid.velocity.y,input_y)*SPEED;
             this.transform.Translate(new Vector3(input_x,0,input_y)*SPEED*Time.deltaTime);
         }
         else{
